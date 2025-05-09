@@ -1,13 +1,13 @@
 import Layout from "nets/components/Layout";
 import RankComponent from "nets/components/Rank/RankComponent";
 import Search, { SearchHandle } from "nets/components/Search";
-import { motion } from "framer-motion";
-import SmallCard from "nets/components/Rank/SmallCard";
+// import { motion } from "framer-motion";
+// import SmallCard from "nets/components/Rank/SmallCard";
 import { useQuery } from "@tanstack/react-query";
 import useConfig from "nets/stores/useConfig";
 import { Player } from "nets/types";
 import { useRef } from "react";
-import Image from "next/image";
+// import Image from "next/image";
 
 const PlayersPage = () => {
   const searchRef = useRef<SearchHandle>(null);
