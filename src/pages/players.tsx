@@ -35,7 +35,7 @@ const PlayersPage = () => {
   return (
     <Layout title="Players">
       <Search ref={searchRef} />
-      {config.keyword !== "" ? (
+      {/* {config.keyword !== "" ? (
         <div id="search-result" className="py-2">
           <div className="flex justify-between items-center px-2">
             <div>
@@ -74,8 +74,9 @@ const PlayersPage = () => {
           )}
         </div>
       ) : (
-        <RankComponent />
-      )}
+        
+      )} */}
+      <RankComponent />
     </Layout>
   );
 };
