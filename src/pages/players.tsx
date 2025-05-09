@@ -1,13 +1,13 @@
 import Layout from "nets/components/Layout";
 import RankComponent from "nets/components/Rank/RankComponent";
 import Search, { SearchHandle } from "nets/components/Search";
-// import { motion } from "framer-motion";
-// import SmallCard from "nets/components/Rank/SmallCard";
+import { motion } from "framer-motion";
+import SmallCard from "nets/components/Rank/SmallCard";
 import { useQuery } from "@tanstack/react-query";
 import useConfig from "nets/stores/useConfig";
 import { Player } from "nets/types";
 import { useRef } from "react";
-// import Image from "next/image";
+import Image from "next/image";
 
 const PlayersPage = () => {
   const searchRef = useRef<SearchHandle>(null);
@@ -27,15 +27,15 @@ const PlayersPage = () => {
     },
   });
 
-  // const handleClear = () => {
-  //   config.setKeyword("")
-  //   searchRef.current?.clearInput();
-  // };
+  const handleClear = () => {
+    config.setKeyword("")
+    searchRef.current?.clearInput();
+  };
 
   return (
     <Layout title="Players">
       <Search ref={searchRef} />
-      {/* {config.keyword !== "" ? (
+      {config.keyword !== "" ? (
         <div id="search-result" className="py-2">
           <div className="flex justify-between items-center px-2">
             <div>
@@ -74,9 +74,8 @@ const PlayersPage = () => {
           )}
         </div>
       ) : (
-        
-      )} */}
-      <RankComponent />
+        <RankComponent />
+      )}
     </Layout>
   );
 };
