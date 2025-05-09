@@ -22,7 +22,10 @@ const PlayersPage = () => {
         throw new Error('Failed to fetch search results');
       }
       const players: Player[] = resp.result;
-      if (config.setSearchResult) config.setSearchResult(players);
+      if (config.setSearchResult) {
+        console.log("this function exist", config.setSearchResult)
+        config.setSearchResult(players);
+      }
       return resp;
     },
   });
