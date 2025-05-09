@@ -17,8 +17,9 @@ const PlayersPage = () => {
     queryFn: async () => {
       const rank = await fetch(`/api/search?name=${config.keyword}`, { method: "GET" });
       const resp = await rank.json();
-      const players: Player[] = resp.result;
+      const players: Player[] = resp.result || [];
       config.setSearchResult(players);
+      return players;
     },
   });
 
