@@ -1,5 +1,5 @@
 import Layout from "nets/components/Layout";
-import RankComponent from "nets/components/Rank/RankComponent";
+// import RankComponent from "nets/components/Rank/RankComponent";
 import Search, { SearchHandle } from "nets/components/Search";
 // import { motion } from "framer-motion";
 // import SmallCard from "nets/components/Rank/SmallCard";
@@ -76,7 +76,7 @@ const PlayersPage = () => {
       ) : (
         
       )} */}
-      <RankComponent />
+      {/* <RankComponent /> */}
     </Layout>
   );
 };
