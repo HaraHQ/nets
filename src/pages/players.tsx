@@ -12,7 +12,7 @@ import Image from "next/image";
 const PlayersPage = () => {
   const searchRef = useRef<SearchHandle>(null);
   const config = useConfig();
-  useQuery({
+  const search = useQuery({
     queryKey: ["search", config.keyword],
     queryFn: async () => {
       const rank = await fetch(`/api/search?name=${config.keyword}`, { method: "GET" });
@@ -52,7 +52,7 @@ const PlayersPage = () => {
               Clear
             </motion.button>
           </div>
-          {config.searchResult.length ? (
+          {search.isSuccess && config.searchResult.length ? (
             <div className="p-4 flex flex-col gap-2">
               {config.searchResult.map((p) => (
                 <SmallCard key={p.id} {...p} />
