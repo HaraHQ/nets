@@ -54,10 +54,9 @@ const PlayersPage = () => {
               Clear
             </motion.button>
           </div>
-          {JSON.stringify(result)}
           {result.length ? (
             <div className="p-4 flex flex-col gap-2">
-              {config.searchResult.map((p) => (
+              {result.map((p) => (
                 <SmallCard key={p.id} {...p} />
               ))}
             </div>
