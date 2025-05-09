@@ -15,7 +15,7 @@ import MatchCard from "nets/components/League/MatchCard";
 const IndexPage = () => {
   const [league, setLeague] = useState<League[]>([]);
   const [journey, setJourney] = useState<League[]>([]);
-  const [upcoming, setUpcoming] = useState<Matches[]>([]);
+  const [upcoming, setUpcoming] = useState<Matches>([]);
   useQuery({
     queryKey: ["league"],
     queryFn: async () => {
@@ -79,13 +79,12 @@ const IndexPage = () => {
         <div className="flex flex-col gap-2">
           <div className="text-sm font-normal leading-5">Upcoming Match</div>
           {upcoming.map((u, idx) => (
-            // yang ini tech debt ya... soalnya 40 menit lagi saya mau deploy
             <MatchCard
-              key={u[idx].id}
-              id={u[idx].id}
-              mode={u[idx].mode}
-              players={u[idx].players}
-              score={u[idx].score}
+              key={u.id}
+              id={u.id}
+              mode={u.mode}
+              players={u.players}
+              score={u.score}
             />
           ))}
         </div>
