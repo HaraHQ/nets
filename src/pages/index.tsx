@@ -21,6 +21,9 @@ const IndexPage = () => {
     queryFn: async () => {
       const req = await fetch("/api/leagues", { method: "GET" });
       const res = await req.json();
+      if (!res.ok) {
+        throw new Error('Failed to fetch search results');
+      }
 
       const result = res.league || [];
       setLeague(result);
@@ -32,6 +35,9 @@ const IndexPage = () => {
     queryFn: async () => {
       const req = await fetch("/api/my-journey", { method: "GET" });
       const res = await req.json();
+      if (!res.ok) {
+        throw new Error('Failed to fetch search results');
+      }
 
       const result = res.league || [];
       setJourney(result);
@@ -43,6 +49,9 @@ const IndexPage = () => {
     queryFn: async () => {
       const req = await fetch("/api/upcoming", { method: "GET" });
       const res = await req.json();
+      if (!res.ok) {
+        throw new Error('Failed to fetch search results');
+      }
 
       const result = res.matches || [];
 
