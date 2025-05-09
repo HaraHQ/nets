@@ -19,6 +19,7 @@ const PlayersPage = () => {
       const resp = await rank.json();
       const players: Player[] = resp.result;
       config.setSearchResult(players);
+      return players;
     },
   });
 

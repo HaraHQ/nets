@@ -29,6 +29,7 @@ const RankComponent: FC = () => {
       const rank = await fetch("/api/ranks", { method: "GET" });
       const resp = await rank.json();
       setPlayers(resp);
+      return resp;
     }
   })
 
