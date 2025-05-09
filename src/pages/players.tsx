@@ -26,7 +26,6 @@ const PlayersPage = () => {
         console.log("this function exist", config.setSearchResult)
         config.setSearchResult(players);
       }
-      return resp;
     },
   });
 
