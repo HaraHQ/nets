@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import SmallCard from "nets/components/Rank/SmallCard";
 import { useQuery } from "@tanstack/react-query";
 import useConfig from "nets/stores/useConfig";
-import { Player } from "nets/types";
+// import { Player } from "nets/types";
 import { useEffect, useRef } from "react";
 import Image from "next/image";
 
@@ -21,7 +21,7 @@ const PlayersPage = () => {
       if (!resp.ok) {
         throw new Error('Failed to fetch search results');
       }
-      const players: Player[] = resp.result;
+      // const players: Player[] = resp.result;
       return resp;
     },
   });
