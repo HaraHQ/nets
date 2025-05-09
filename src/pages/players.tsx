@@ -12,30 +12,26 @@ import Image from "next/image";
 const PlayersPage = () => {
   const searchRef = useRef<SearchHandle>(null);
   const config = useConfig();
-  const { data, isSuccess } = useQuery({
+  const { data, isSuccess } = useQuery<Player[], Error>({
     queryKey: ["search", config.keyword],
     enabled: config.keyword !== "",
     queryFn: async () => {
-      const rank = await fetch(`/api/search?name=${config.keyword}`, { method: "GET" });
+      const rank = await fetch(`/api/search?name=${config.keyword}`);
       const resp = await rank.json();
+  
       if (!resp.ok) {
-        throw new Error('Failed to fetch search results');
+        throw new Error("Failed to fetch search results");
       }
-      const players: Player[] = resp.result;
-      if (config.setSearchResult) {
-        console.log("this function exist", config.setSearchResult)
-        config.setSearchResult(players);
-      }
+  
+      return resp.result as Player[];
     },
   });
-
+  
   useEffect(() => {
-    if (isSuccess) {
-      console.log("DATA", data);
+    if (isSuccess && data) {
+      config.setSearchResult(data);
     }
-    // config.setSearchResult(data.);
-    // eslint-disable-next-line
-  }, [data, isSuccess]);
+  }, [isSuccess, data]);
 
   const handleClear = () => {
     config.setKeyword("")
