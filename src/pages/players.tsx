@@ -6,14 +6,14 @@ import SmallCard from "nets/components/Rank/SmallCard";
 import { useQuery } from "@tanstack/react-query";
 import useConfig from "nets/stores/useConfig";
 import { Player } from "nets/types";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
 
 const PlayersPage = () => {
   const searchRef = useRef<SearchHandle>(null);
   const [result, setResult] = useState<Player[]>([])
   const config = useConfig();
-  const { data, isSuccess } = useQuery<Player[], Error>({
+  useQuery({
     queryKey: ["search", config.keyword],
     enabled: config.keyword !== "",
     queryFn: async () => {
@@ -23,19 +23,14 @@ const PlayersPage = () => {
       if (!resp.ok) {
         throw new Error("Failed to fetch search results");
       }
-  
-      return resp.result as Player[];
+
+      setResult(resp.result);
     },
   });
-  
-  useEffect(() => {
-    if (isSuccess && data) {
-      setResult(data);
-    }
-  }, [isSuccess, data]);
 
   const handleClear = () => {
     config.setKeyword("")
+    setResult([]);
     searchRef.current?.clearInput();
   };
 
