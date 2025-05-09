@@ -78,7 +78,7 @@ const IndexPage = () => {
         </div>
         <div className="flex flex-col gap-2">
           <div className="text-sm font-normal leading-5">Upcoming Match</div>
-          {upcoming.map((u, idx) => (
+          {upcoming.map((u) => (
             <MatchCard
               key={u.id}
               id={u.id}
