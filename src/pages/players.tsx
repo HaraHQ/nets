@@ -27,10 +27,10 @@ const PlayersPage = () => {
     },
   });
 
-  const handleClear = () => {
-    config.setKeyword("")
-    searchRef.current?.clearInput();
-  };
+  // const handleClear = () => {
+  //   config.setKeyword("")
+  //   searchRef.current?.clearInput();
+  // };
 
   return (
     <Layout title="Players">
