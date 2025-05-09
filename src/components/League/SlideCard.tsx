@@ -47,7 +47,7 @@ const LeagueSlideCard: FC<League> = ({
     return `${formattedDay} ${monthName} ${year}`;
   }
   return (
-    <div className="bg-amber-400 p-2.5 min-h-[142px]">
+    <div className="bg-amber-400 p-2.5 min-h-[162px]">
       <div className="flex justify-between">
         <div className="flex flex-col">
           <div className="text-sm font-medium leading-6 text-[#1B2C5F]">
