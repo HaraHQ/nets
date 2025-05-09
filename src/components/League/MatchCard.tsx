@@ -7,6 +7,10 @@ const MatchCard: FC<ParsedMatch> = ({
   players,
   score,
 }) => {
+  const generateScore = (score: string) => {
+    const s = JSON.parse(score);
+    return `${s.left}:${s.right}`
+  }
   return (
     <div className="border rounded-lg">
       <div className="px-2 py-3">
@@ -14,7 +18,7 @@ const MatchCard: FC<ParsedMatch> = ({
           <PlayIcon />
         </div>
         <div className="bg-gray-200 py-2 w-full text-center text-gray-400 text-sm capitalize">{mode}</div>
-        <div className="py-1 w-full text-center text-gray-300 text-xs">{!score ? "Score not available" : score}</div>
+        <div className="py-1 w-full text-center text-gray-300 text-xs">{!score ? "Score not available" : generateScore(score)}</div>
         <div className="flex items-center justify-between gap-1">
           <div className="flex-1 flex flex-col text-[10pt]">
             <div>{players.left[0]}</div>
