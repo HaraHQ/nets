@@ -23,7 +23,6 @@ const IndexPage = () => {
       const res = await req.json();
       const result = res.league || [];
       setLeague(result);
-      return result;
     },
   });
   useQuery({
@@ -33,7 +32,6 @@ const IndexPage = () => {
       const res = await req.json();
       const result = res.league || [];
       setJourney(result);
-      return result;
     },
   });
   useQuery({
@@ -43,7 +41,6 @@ const IndexPage = () => {
       const res = await req.json();
       const result = res.matches || [];
       setUpcoming(result);
-      return result;
     },
   });
   return (
