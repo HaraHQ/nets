@@ -54,7 +54,7 @@ const PlayersPage = () => {
           {config.searchResult.length ? (
             <div className="p-4 flex flex-col gap-2">
               {config.searchResult.map((p) => (
-                <SmallCard {...p} />
+                <SmallCard key={p.id} {...p} />
               ))}
             </div>
           ) : (

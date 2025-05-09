@@ -57,7 +57,7 @@ const JoinedCard: FC<League> = ({
         </div>  
       </div>
       <div className="border-t bg-gray-200 p-2 flex justify-end text-sm font-semibold">
-        You're Joining This League
+        You{"'"}re Joining This League
       </div>
     </div>
   )

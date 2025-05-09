@@ -1,4 +1,4 @@
-import { League, ParsedMatch } from "nets/types";
+import { ParsedMatch } from "nets/types";
 import { FC } from "react";
 import PlayIcon from "../icons/Play";
 

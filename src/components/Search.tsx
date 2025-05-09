@@ -6,7 +6,6 @@ import {
   useState,
 } from "react";
 import { CiFilter, CiSearch } from "react-icons/ci";
-import { FaX } from "react-icons/fa6";
 import { useDebounce } from "nets/lib/debounce";
 import useConfig from "nets/stores/useConfig";
 
@@ -31,7 +30,7 @@ const Search = forwardRef<SearchHandle>((_, ref) => {
 
   useEffect(() => {
     config.setKeyword(debounce);
-  }, [debounce]);
+  }, [debounce, config]);
 
   return (
     <div className="px-4 py-2 flex justify-between items-center">
@@ -51,5 +50,7 @@ const Search = forwardRef<SearchHandle>((_, ref) => {
     </div>
   );
 });
+
+Search.displayName = "Search";
 
 export default Search;
