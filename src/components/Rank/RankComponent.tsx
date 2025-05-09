@@ -9,8 +9,10 @@ import { useQuery } from '@tanstack/react-query';
 import { Player } from 'nets/types';
 
 import 'swiper/css';
+import useConfig from 'nets/stores/useConfig';
 
 const RankComponent: FC = () => {
+  const config = useConfig();
   const swiperRef = useRef<SwiperCore | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [players, setPlayers] = useState<{
@@ -25,6 +27,7 @@ const RankComponent: FC = () => {
 
   const r = useQuery({
     queryKey: ["rank"],
+    enabled: config.keyword === "",
     queryFn: async () => {
       const rank = await fetch("/api/ranks", { method: "GET" });
       const resp = await rank.json();

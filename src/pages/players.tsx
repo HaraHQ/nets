@@ -14,6 +14,7 @@ const PlayersPage = () => {
   const config = useConfig();
   const search = useQuery({
     queryKey: ["search", config.keyword],
+    enabled: config.keyword !== "",
     queryFn: async () => {
       const rank = await fetch(`/api/search?name=${config.keyword}`, { method: "GET" });
       const resp = await rank.json();
