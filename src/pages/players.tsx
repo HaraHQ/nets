@@ -6,11 +6,12 @@ import SmallCard from "nets/components/Rank/SmallCard";
 import { useQuery } from "@tanstack/react-query";
 import useConfig from "nets/stores/useConfig";
 import { Player } from "nets/types";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
 const PlayersPage = () => {
   const searchRef = useRef<SearchHandle>(null);
+  const [result, setResult] = useState<Player[]>([])
   const config = useConfig();
   const { data, isSuccess } = useQuery<Player[], Error>({
     queryKey: ["search", config.keyword],
@@ -29,7 +30,7 @@ const PlayersPage = () => {
   
   useEffect(() => {
     if (isSuccess && data) {
-      config.setSearchResult(data);
+      setResult(data);
     }
   }, [isSuccess, data]);
 
@@ -62,7 +63,7 @@ const PlayersPage = () => {
               Clear
             </motion.button>
           </div>
-          {config.searchResult.length ? (
+          {result.length ? (
             <div className="p-4 flex flex-col gap-2">
               {config.searchResult.map((p) => (
                 <SmallCard key={p.id} {...p} />
