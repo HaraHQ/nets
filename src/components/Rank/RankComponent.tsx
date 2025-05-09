@@ -23,7 +23,7 @@ const RankComponent: FC = () => {
     top50: [],
   });
 
-  useQuery({
+  const r = useQuery({
     queryKey: ["rank"],
     queryFn: async () => {
       const rank = await fetch("/api/ranks", { method: "GET" });
@@ -32,7 +32,7 @@ const RankComponent: FC = () => {
     }
   })
 
-  return (
+  if (r.isSuccess && r.data) return (
     <section id="rank" className="w-full bg-white pb-16">
       <Swiper
         onSwiper={(swiper) => (swiperRef.current = swiper)}
@@ -80,6 +80,10 @@ const RankComponent: FC = () => {
         ))}
       </div>
     </section>
+  )
+
+  return (
+    <div>Loading...</div>
   );
 };
 
