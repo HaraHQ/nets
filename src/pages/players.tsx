@@ -22,7 +22,7 @@ const PlayersPage = () => {
         throw new Error('Failed to fetch search results');
       }
       const players: Player[] = resp.result;
-      config.setSearchResult(players);
+      // config.setSearchResult(players);
       return players;
     },
   });
