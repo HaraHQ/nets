@@ -19,10 +19,6 @@ const PlayersPage = () => {
     queryFn: async () => {
       const rank = await fetch(`/api/search?name=${config.keyword}`);
       const resp = await rank.json();
-  
-      if (!resp.ok) {
-        throw new Error("Failed to fetch search results");
-      }
 
       setResult(resp.result);
     },
