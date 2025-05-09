@@ -12,15 +12,13 @@ import Image from "next/image";
 const PlayersPage = () => {
   const searchRef = useRef<SearchHandle>(null);
   const config = useConfig();
-  const search = useQuery({
+  useQuery({
     queryKey: ["search", config.keyword],
-    enabled: config.keyword !== "",
     queryFn: async () => {
       const rank = await fetch(`/api/search?name=${config.keyword}`, { method: "GET" });
       const resp = await rank.json();
-      const players: Player[] = resp.result || [];
+      const players: Player[] = resp.result;
       config.setSearchResult(players);
-      return players;
     },
   });
 
@@ -32,7 +30,7 @@ const PlayersPage = () => {
   return (
     <Layout title="Players">
       <Search ref={searchRef} />
-      {config.keyword !== "" && (
+      {config.keyword !== "" ? (
         <div id="search-result" className="py-2">
           <div className="flex justify-between items-center px-2">
             <div>
@@ -53,7 +51,7 @@ const PlayersPage = () => {
               Clear
             </motion.button>
           </div>
-          {search.isSuccess && config.searchResult.length ? (
+          {config.searchResult.length ? (
             <div className="p-4 flex flex-col gap-2">
               {config.searchResult.map((p) => (
                 <SmallCard key={p.id} {...p} />
@@ -70,8 +68,7 @@ const PlayersPage = () => {
             </div>
           )}
         </div>
-      )}
-      {config.keyword === "" && (
+      ) : (
         <RankComponent />
       )}
     </Layout>

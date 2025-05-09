@@ -30,7 +30,8 @@ const Search = forwardRef<SearchHandle>((_, ref) => {
 
   useEffect(() => {
     config.setKeyword(debounce);
-  }, [debounce, config]);
+    // eslint-disable-next-line
+  }, [debounce]);
 
   return (
     <div className="px-4 py-2 flex justify-between items-center">
