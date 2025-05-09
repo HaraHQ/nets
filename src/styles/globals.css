@@ -2,26 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+.swiper-pagination-bullet {
+  @apply w-6 h-6 bg-gray-200 rounded-full transition-all;
+}
+.swiper-pagination-bullet-active {
+  @apply bg-blue-600;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.league-swiper-pagination {
+  position: relative !important;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: -12px; /* Adjust to visually align with card */
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+.league-swiper-pagination .swiper-pagination-bullet {
+  width: 8px;
+  height: 8px;
+  background: white;
+  opacity: 0.6;
+  border-radius: 9999px;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+.league-swiper-pagination .swiper-pagination-bullet-active {
+  background: #b48c18; /* custom gold */
+  opacity: 1;
 }

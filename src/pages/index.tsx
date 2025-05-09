@@ -1,115 +1,97 @@
-import Image from "next/image";
-import localFont from "next/font/local";
+import Layout from "nets/components/Layout";
+import LeagueSlideCard from "nets/components/League/SlideCard";
+import UserCard from "nets/components/User/Card";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination } from "swiper/modules";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+import "swiper/css";
+import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
+import { League, Matches } from "nets/types";
+import JoinedCard from "nets/components/League/JoinedCard";
+import MatchCard from "nets/components/League/MatchCard";
 
-export default function Home() {
+// start from 22.40
+const IndexPage = () => {
+  const [league, setLeague] = useState<League[]>([]);
+  const [journey, setJourney] = useState<League[]>([]);
+  const [upcoming, setUpcoming] = useState<Matches[]>([]);
+  useQuery({
+    queryKey: ["league"],
+    queryFn: async () => {
+      const req = await fetch("/api/leagues", { method: "GET" });
+      const res = await req.json();
+
+      const result = res.league || [];
+      setLeague(result);
+    },
+  });
+  useQuery({
+    queryKey: ["joined"],
+    queryFn: async () => {
+      const req = await fetch("/api/my-journey", { method: "GET" });
+      const res = await req.json();
+
+      const result = res.league || [];
+      setJourney(result);
+    },
+  });
+  useQuery({
+    queryKey: ["upcoming"],
+    queryFn: async () => {
+      const req = await fetch("/api/upcoming", { method: "GET" });
+      const res = await req.json();
+
+      const result = res.matches || [];
+
+      setUpcoming(result);
+    },
+  });
   return (
-    <div
-      className={`${geistSans.variable} ${geistMono.variable} grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]`}
-    >
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/pages/index.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <Layout title="Dashboard">
+      <UserCard />
+      <Swiper
+        slidesPerView="auto"
+        spaceBetween={12}
+        modules={[Pagination]}
+        pagination={{
+          el: ".league-swiper-pagination",
+          clickable: true,
+        }}
+        className="pb-6 nets-league-card"
+      >
+        {league.map((l) => (
+          <SwiperSlide key={l.id}>
+            <LeagueSlideCard {...l} />
+          </SwiperSlide>
+        ))}
+      </Swiper>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      <div className="league-swiper-pagination mt-2 flex gap-2 justify-center z-[500]" />
+
+      <div className="p-4 flex flex-col gap-6 pb-24">
+        <div className="flex flex-col gap-2">
+          <div className="text-sm font-normal leading-5">Joined League</div>
+          {journey.map((j) => (
+            <JoinedCard key={j.id} {...j} />
+          ))}
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+        <div className="flex flex-col gap-2">
+          <div className="text-sm font-normal leading-5">Upcoming Match</div>
+          {upcoming.map((u, idx) => (
+            // yang ini tech debt ya... soalnya 40 menit lagi saya mau deploy
+            <MatchCard
+              key={u[idx].id}
+              id={u[idx].id}
+              mode={u[idx].mode}
+              players={u[idx].players}
+              score={u[idx].score}
+            />
+          ))}
+        </div>
+      </div>
+    </Layout>
   );
-}
+};
+
+export default IndexPage;
